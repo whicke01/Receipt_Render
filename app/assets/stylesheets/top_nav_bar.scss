@@ -1,0 +1,23 @@
+.top-bar{
+  background-color: #DD4444;
+  & .right{
+    color: #E5E7E6;
+    background-color: #DD4444;
+    margin-right: 2rem;
+  }
+  & a{
+    color: #E5E7E6;
+  }
+  & a:hover{
+    color: #464F7A;
+  }
+  & h1{
+    margin-left: 2rem;
+  }
+}
+
+.top-bar-section{
+  margin-right: 2rem;
+  background-color: #DD4444;
+
+}
