@@ -1,34 +1,38 @@
 # Receipt Render
 
-This is the Reciept Render App. Use this app to quickly and easily split up a reciept/bill between multiple people/groups, without needing to type in the items. Take a picture of the reciept and then load it into the app, when prompted. 
+This is the Reciept Render App. Use this app to quickly and easily split up a reciept/bill between multiple people/groups, without needing to type in the line items. Take a picture of the reciept and then load it into the app, when prompted. 
 
 [![Codeship Status for whicke01/Receipt_Render](https://app.codeship.com/projects/4ffea0b0-e7a8-42f8-9a85-d6d2364050da/status?branch=master)](https://app.codeship.com/projects/443354)
 
-<!-- This README would normally document whatever steps are necessary to get the
-application up and running. -->
 
-Things you may want to cover:
+**Developed By:** Will Hickey
+**Heroku Link:**
+**Included Features:** 
+**Included Technologies:** Rails server, PostgreSQL database, React JS frontend, Google Vision API
 
-* Ruby version: 2.7.3
 
-* System dependencies
+#### Dependencies: 
+  * Ruby Version: 2.7.3 
+  * Rails Version: 5.2.5 
+  * Bundler Version: 2.2.15
 
-* Configuration
+#### Getting Started:
 
-* Database creation
+After you fork, clone, or download the repo, execute the following commands to run the application locally:
 
-* Database initialization
+$ `bundle install `
+$ `yarn install`
 
-* How to run the test suite
+To build the PostgreSQL database:
 
-* Services (job queues, cache servers, search engines, etc.)
+$ `bundle exec rake db:create` 
+$ `bundle exec rake db:migrate` 
+$ `bundle exec rake db:seed`
 
-* Deployment instructions
+To view the app in development locally at https://localhost:3000/ Run the following commands in separate terminal windows:
 
-* ...
+$ `rails s` 
+$ `yarn start`
 
-<!--Name and brief description of the project
-A list of authors
-Heroku link to deployed site
-A list of features included in the site
-An outline of the technologies in the project>
+#### In Progress Features:
+
