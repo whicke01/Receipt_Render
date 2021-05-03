@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import ReceiptLinkButton from './ReceiptLinkButton'
+
 const ReceiptHome = (props) => {
 
   return(
@@ -10,15 +12,9 @@ const ReceiptHome = (props) => {
           <h1>Welcome to Receipt Render!</h1>
         </div>
 
-        <div className='cell small-7 home_button'>
-          <h3><Link to={'/Receipt/new'}>Add a Receipt</Link></h3>
-        </div>
-
-        <div className='cell small-7 home_button'>
-          <h3><Link to={'/'}>Check Receipt History</Link></h3>
-        </div>
+        <ReceiptLinkButton url='/Receipt/new' text='Add a Receipt'/>
+        <ReceiptLinkButton url='/' text='Check Receipt History'/>
       </div>
-
     </div>
   )
 }

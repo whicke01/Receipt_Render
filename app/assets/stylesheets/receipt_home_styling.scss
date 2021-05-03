@@ -15,7 +15,7 @@ body{
 
 .home_header{
   color: #000B41;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .home_button{
@@ -25,11 +25,11 @@ body{
   border-radius: 2rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  text-align: middle;
-  & a{
-    color: #E5E7E6;//#000B41;
-  }
-  & a:hover{
-    color: #464F7A;
-  }
+  color: #E5E7E6;//#000B41;
+}
+
+.home_button:hover{
+  color: #E5E7E6;
+  background-color: #DD4444;
+  border-color: #ff5050;
 }
