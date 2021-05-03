@@ -3,13 +3,16 @@
   & .right{
     color: #E5E7E6;
     background-color: #DD4444;
+    margin-right: 2rem;
   }
   & a{
-    margin-right: 2rem;
     color: #E5E7E6;
   }
   & a:hover{
     color: #464F7A;
+  }
+  & h1{
+    margin-left: 2rem;
   }
 }
 
