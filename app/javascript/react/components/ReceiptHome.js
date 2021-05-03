@@ -11,7 +11,7 @@ const ReceiptHome = (props) => {
         </div>
 
         <div className='cell small-7 home_button'>
-          <h3><Link to={'/'}>Add a Receipt</Link></h3>
+          <h3><Link to={'/Receipt/new'}>Add a Receipt</Link></h3>
         </div>
 
         <div className='cell small-7 home_button'>
