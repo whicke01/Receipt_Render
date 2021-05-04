@@ -35,40 +35,43 @@ const ReceiptFormTiles = (props) => {
     return(
       <>
         <h3>This is the 1st form for getting number of guests and restaurant name</h3>
-
-        <div className="cell small-6 input-group plus-minus-input">
-          <div className="input-group-button">
-            <button 
-              type="button" 
-              className="button hollow circle" 
-              data-quantity="minus" 
-              data-field="party_size"
-              onClick={smallButtonClick}
-              >
-              <i className="fa fa-minus" aria-hidden="true"></i>
-            </button>
-          </div>
-          <input 
-            className="input-group-field" 
-            type="number" 
-            name="party_size" 
-            value={dinnerParty.party_size} 
-            onChange={handleChange}
-          />
-          <div className="input-group-button">
-            <button 
-              type="button" 
-              className="button hollow circle" 
-              data-quantity="plus" 
-              data-field="party_size"
-              onClick={smallButtonClick}
-              >
-              <i className="fa fa-plus" aria-hidden="true"></i>
-            </button>
+        <p>Party size (how many people are splitting the bill):</p>
+        <div className='grid-x grid-margin-x align-spaced'>
+          <div className="cell small-10 input-group plus-minus-input">
+            <div className="input-group-button">
+              <button 
+                type="button" 
+                className="button hollow circle" 
+                data-quantity="minus" 
+                data-field="party_size"
+                onClick={smallButtonClick}
+                >
+                <i className="fa fa-minus" aria-hidden="true"></i>
+              </button>
+            </div>
+            
+            <input 
+              className="input-group-field" 
+              type="number" 
+              name="party_size" 
+              value={dinnerParty.party_size} 
+              onChange={handleChange}
+            />
+            <div className="input-group-button">
+              <button 
+                type="button" 
+                className="button hollow circle" 
+                data-quantity="plus" 
+                data-field="party_size"
+                onClick={smallButtonClick}
+                >
+                <i className="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
         </div>
 
-        <button className='cell small-4 home_button' onClick={props.onNextClick}><h3>Next</h3></button>
+        <button className='cell home_button' onClick={props.onNextClick}><h3>Next</h3></button>
       </>
     )
   } else if(props.form_number === 2) {

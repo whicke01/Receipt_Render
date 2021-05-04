@@ -1,6 +1,6 @@
 .plus-minus-input {
-  align-items: center;
   max-width: 25rem;
+  align-items: center;
 
   .input-group-field {
     text-align: center;
@@ -19,6 +19,13 @@
     .circle {
       border-radius: 50%;
       padding: 0.7em 0.7em;
+      color: #DD4444;
+      border-color: #DD4444;
+    }
+
+    .circle:hover {
+      color: #464F7A;
+      border-color: #464F7A;
     }
   }
 }
