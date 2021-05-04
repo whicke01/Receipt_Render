@@ -12,7 +12,7 @@ const ReceiptHome = (props) => {
           <h1>Welcome to Receipt Render!</h1>
         </div>
 
-        <ReceiptLinkButton url='/Receipt/new' text='Add a Receipt'/>
+        <ReceiptLinkButton url='/receipt/new' text='Add a Receipt'/>
         <ReceiptLinkButton url='/' text='Check Receipt History'/>
       </div>
     </div>

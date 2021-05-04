@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/receipts', to: 'homes#index'
-  get '/receipts/new', to: 'homes#index'
+  get '/receipt/new', to: 'homes#index'
 
 end

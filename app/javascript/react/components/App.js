@@ -9,7 +9,8 @@ export const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path={'/'} component={ReceiptHome}/>
-        <Route exact path={`/Receipt/new`} component={ReceiptForm}/>
+        <Route exact path={`/receipt`} conponent={ReceiptHome}/>
+        <Route exact path={`/receipt/new`} component={ReceiptForm}/>
       </Switch>
     </BrowserRouter>
   )

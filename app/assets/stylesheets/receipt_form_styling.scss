@@ -1,0 +1,24 @@
+.plus-minus-input {
+  align-items: center;
+  max-width: 25rem;
+
+  .input-group-field {
+    text-align: center;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 1rem;
+    border-radius: 0.75em;
+
+    &::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      appearance: none;
+    }
+  }
+
+  .input-group-button {
+    .circle {
+      border-radius: 50%;
+      padding: 0.7em 0.7em;
+    }
+  }
+}
