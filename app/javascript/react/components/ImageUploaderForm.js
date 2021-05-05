@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Dropzone from 'react-dropzone'
 
 const ImageUploaderForm = (props) => {
-  const [billPic, setBillPic] = useState([])
+
+  const handleFileUpload = (acceptedFiles) => {
+    let tempReceit = props.receipt
+    tempReceit.image = acceptedFiles[0]
+    props.onNextClick(tempReceit)
+  }
 
   return(
     <div className="duck-form">
