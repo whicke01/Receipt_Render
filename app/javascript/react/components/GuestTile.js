@@ -37,21 +37,20 @@ const GuestTile = (props) => {
         </button>
       </div>
     )
-
   } else {
     guestTile = (
-      <h3>{guest.name} 
+      <span className='guest_name'>{guest.name} 
         <button className='edit_button' onClick={onEditClick}>
           <i className="fas fa-edit"></i>
         </button>
-      </h3>
+      </span>
     )
   }
 
   return(
     <div className='cell small-7 align-spaced guest_tile'>
       {guestTile}
-      
+
     </div>
   )
 }
