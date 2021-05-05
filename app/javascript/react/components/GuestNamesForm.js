@@ -16,10 +16,13 @@ const GuestNamesForm = (props) => {
   let guestsTiles = new Array(props.receipt.party_size)
 
   for( let i = 0; i < props.receipt.party_size; i++ ) {
+    let guestName = `Guest ${i+1}`
+    debugger
+    props.receipt.guests[i]? (guestName = props.receipt.guests[i].name): ''
     guestsTiles[i] = <GuestTile 
       key={i+1}
       id={i}
-      name={`Guest ${i+1}`} 
+      name={guestName} 
       onEdit={onEdit}
     />
   }
