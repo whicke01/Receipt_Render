@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   get '/receipts', to: 'homes#index'
   get '/receipt/new', to: 'homes#index'
+  get '/receipt/new/:id', to: 'homes#index'
 
 end
