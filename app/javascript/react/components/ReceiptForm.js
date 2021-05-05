@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 
 import PartySizeForm from './PartySizeForm'
 import GuestNamesForm from './GuestNamesForm'
+import ImagesUploaderForm from './ImageUploaderForm'
+import ImageUploaderForm from './ImageUploaderForm'
 
 const ReceiptForm = (props) => {
   const [newReceipt, setNewReceipt] = useState({
@@ -29,7 +31,7 @@ const ReceiptForm = (props) => {
             <GuestNamesForm receipt={newReceipt} onNextClick={onNextClick}/>
           </Route>
           <Route exact path='/receipt/new/3'>
-            <h3>This is the form page for adding an image</h3>
+            <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 
