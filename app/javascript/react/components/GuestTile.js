@@ -24,7 +24,7 @@ const GuestTile = (props) => {
       editable: !guest.editable
     })
     
-    props.onEdit(props.id, 'edited name')
+    props.onEdit(props.id, guest.name)
   }
 
   let guestTile 

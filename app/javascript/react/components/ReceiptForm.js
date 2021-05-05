@@ -17,7 +17,6 @@ const ReceiptForm = (props) => {
 
   const onNextClick = (newData) => {
     setNewReceipt(newData)
-    debugger
   }
 
   return(
