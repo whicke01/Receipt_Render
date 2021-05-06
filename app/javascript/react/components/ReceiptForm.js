@@ -5,7 +5,6 @@ import PartySizeForm from './PartySizeForm'
 import GuestNamesForm from './GuestNamesForm'
 import ImageUploaderForm from './ImageUploaderForm'
 import FormReview from './FormReview'
-import { catch } from 'fetch-mock'
 
 const ReceiptForm = (props) => {
   const [newReceipt, setNewReceipt] = useState({
