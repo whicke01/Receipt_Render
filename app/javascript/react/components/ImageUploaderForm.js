@@ -1,8 +1,11 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
 
 const ImageUploaderForm = (props) => {
+  const [state, setState] = useState({
+
+  })
 
   const handleFileUpload = (acceptedFiles) => {
     let tempReceit = props.receipt
@@ -10,9 +13,30 @@ const ImageUploaderForm = (props) => {
     props.onNextClick(tempReceit)
   }
 
+  const onNext = (event) => {
+    event.preventDefault()
+
+    let newReceipt = props.receipt
+    if(event.currentTarget.name === 'next') {
+      newReceipt.form_number = props.receipt.form_number + 1
+    } else if(event.currentTarget.name === 'previous') {
+      newReceipt.form_number = props.receipt.form_number - 1
+    }
+    props.onNextClick(newReceipt)
+    setState({
+      ...state,
+      shouldRedirect: newReceipt.form_number
+    })
+  }
+
+  if(state.shouldRedirect) {
+    return <Redirect push to={`/receipt/new/${state.shouldRedirect}`} />
+  }
+
   return(
-    <div className="duck-form">
-      <form className="callout" onSubmit={props.onNextClick}>
+    <>
+    <div className="cell small-10 image_drop_div">
+      <form className="callout">
         <Dropzone onDrop={handleFileUpload}>
           {({getRootProps, getInputProps}) => (
             <section>
@@ -23,10 +47,12 @@ const ImageUploaderForm = (props) => {
             </section>
           )}
         </Dropzone>
-
-        <input className="button" type="submit" value="Submit"/>
       </form>
-    </div>
+    </div> 
+
+    <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
+    <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
+    </>
   )
 }
 

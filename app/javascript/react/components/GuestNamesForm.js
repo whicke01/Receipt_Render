@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 
 import GuestTile from './GuestTile'
-import ReceiptLinkButton from './ReceiptLinkButton'
 
 const GuestNamesForm = (props) => {
-  const [guests, setGuests] = useState(props.receipt.guests)
+  const [guests, setGuests] = useState({
+    names: props.receipt.guests,
+    shouldRedirect: 0
+  })
 
   useEffect( ()=>{
     setPlaceHolders()
@@ -13,21 +16,24 @@ const GuestNamesForm = (props) => {
   const setPlaceHolders = () => {
     let firstArray = new Array(props.receipt.party_size)
 
-    if(guests.length === 0) {
+    if(guests.names.length === 0) {
       for( let i = 0; i < props.receipt.party_size; i++ ) {
         firstArray[i] = `Guest ${i + 1}`
       }
-      setGuests(firstArray)
+      setGuests({
+        ...guests,
+        names: firstArray
+      })
     }
   }
 
   const onEdit = (guest_id, name) => {
-    let tempGuests = guests
+    let tempGuests = guests.names
     tempGuests[guest_id] = name
 
-    let tempReceit = props.receipt
-    tempReceit.guests = tempGuests
-    props.onNextClick(tempReceit)
+    let tempReceipt = props.receipt
+    tempReceipt.guests = tempGuests
+    props.onNextClick(tempReceipt)
   }
 
   let guestsTiles = new Array(props.receipt.party_size)
@@ -43,13 +49,35 @@ const GuestNamesForm = (props) => {
     />
   }
 
+  const onNext = (event) => {
+    event.preventDefault()
+
+    let newReceipt = props.receipt
+    if(event.currentTarget.name === 'next') {
+      newReceipt.form_number = props.receipt.form_number + 1
+    } else if(event.currentTarget.name === 'previous') {
+      newReceipt.form_number = props.receipt.form_number - 1
+    }
+    newReceipt.guests = guests.names
+    props.onNextClick(newReceipt)
+    setGuests({
+      ...guests,
+      shouldRedirect: newReceipt.form_number
+    })
+  }
+
+  if(guests.shouldRedirect) {
+    return <Redirect push to={`/receipt/new/${guests.shouldRedirect}`} />
+  }
+
   return(
     <>
       <div className='cell small-11'>
         {guestsTiles}
       </div>
-      <ReceiptLinkButton url={`/receipt/new/${props.receipt.form_number - 1}`} text='Previous' />
-      <ReceiptLinkButton url={`/receipt/new/${props.receipt.form_number + 1}`} text='Next' />
+
+      <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
+      <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
     </>
   )
 }
