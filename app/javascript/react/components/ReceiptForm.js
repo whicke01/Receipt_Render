@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 
 import PartySizeForm from './PartySizeForm'
 import GuestNamesForm from './GuestNamesForm'
+import ImageUploaderForm from './ImageUploaderForm'
+import FormReview from './FormReview'
 
 const ReceiptForm = (props) => {
   const [newReceipt, setNewReceipt] = useState({
@@ -17,6 +19,30 @@ const ReceiptForm = (props) => {
     setNewReceipt(newData)
   }
 
+  const addReceipt = async () => {
+    let body = new FormData()
+    body.append('restaurant', newReceipt.restaurant)
+    body.append('guests', newReceipt.guests)
+    body.append('image', newReceipt.image)
+
+    try {
+      const response = await fetch("api/v1/receipts", {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: body
+      })
+      if(!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      }
+      const addedReceipt = await response.json()
+      console.log('Redirect here to item show page')
+
+    } catch(error) {
+      console.error(`Error in post fetch: ${error.message}`)
+    }
+  }
+
   return(
     <div className='main_div cell small-10'>
       <div className='grid-x grid-margin-x align-spaced'>
@@ -29,7 +55,10 @@ const ReceiptForm = (props) => {
             <GuestNamesForm receipt={newReceipt} onNextClick={onNextClick}/>
           </Route>
           <Route exact path='/receipt/new/3'>
-            <h3>This is the form page for adding an image</h3>
+            <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
+          </Route>
+          <Route exact path='/receipt/new/4'>
+            <FormReview receipt={newReceipt} postSubmit={addReceipt} />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 
