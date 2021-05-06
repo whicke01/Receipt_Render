@@ -3,8 +3,13 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/receipts', to: 'homes#index'
+  get '/receipt', to: 'homes#index'
   get '/receipt/new', to: 'homes#index'
   get '/receipt/new/:id', to: 'homes#index'
 
+  namespace :api do
+    namespace :v1 do
+      resources :receipts, only: [:create]
+    end
+  end
 end

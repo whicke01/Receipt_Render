@@ -3,7 +3,7 @@ import React from 'react'
 const FormReview = (props) => {
 
   const onClickSubmit= (event) => {
-    props.postReceipt()
+    props.addReceipt()
   }
 
   const guestNames = props.receipt.guests.map( (guest, index) => {
@@ -15,7 +15,7 @@ const FormReview = (props) => {
       <ul>
         {guestNames}
       </ul>
-      <img src={props.receipt.image} alt='image of your receipt'/>
+      <img src={props.receipt.image.path} alt='image of your receipt'/>
 
       <button onClick={onClickSubmit} className='home_button next_button'>Submit</button>
     </>

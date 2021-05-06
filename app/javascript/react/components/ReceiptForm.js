@@ -24,7 +24,7 @@ const ReceiptForm = (props) => {
     body.append('restaurant', newReceipt.restaurant)
     body.append('guests', newReceipt.guests)
     body.append('image', newReceipt.image)
-
+    
     try {
       const response = await fetch("api/v1/receipts", {
         method: 'POST',
@@ -58,7 +58,7 @@ const ReceiptForm = (props) => {
             <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
           </Route>
           <Route exact path='/receipt/new/4'>
-            <FormReview receipt={newReceipt} postSubmit={addReceipt} />
+            <FormReview receipt={newReceipt} addReceipt={addReceipt} />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 
