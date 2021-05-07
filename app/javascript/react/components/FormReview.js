@@ -15,7 +15,7 @@ const FormReview = (props) => {
       <ul>
         {guestNames}
       </ul>
-      <img src={props.receipt.image.path} alt='image of your receipt'/>
+      {/* <img src={props.receipt.image.path} alt='image of your receipt'/> */}
 
       <button onClick={onClickSubmit} className='home_button next_button'>Submit</button>
     </>

@@ -24,9 +24,9 @@ const ReceiptForm = (props) => {
     body.append('restaurant', newReceipt.restaurant)
     body.append('guests', newReceipt.guests)
     body.append('image', newReceipt.image)
-    
+
     try {
-      const response = await fetch("api/v1/receipts", {
+      const response = await fetch("/api/v1/receipts", {
         method: 'POST',
         credentials: 'same-origin',
         body: body
