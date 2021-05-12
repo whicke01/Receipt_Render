@@ -35,23 +35,28 @@ const ImageUploaderForm = (props) => {
 
   return(
     <>
-    <div className="cell small-10 image_drop_div">
-      <form className="callout">
-        <Dropzone onDrop={handleFileUpload}>
-          {({getRootProps, getInputProps}) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-              </div>
-            </section>
-          )}
-        </Dropzone>
-      </form>
-    </div> 
-
-    <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
-    <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
+      <div className="cell small-10 image_drop_div">
+        <form className="callout">
+          <Dropzone onDrop={handleFileUpload}>
+            {({getRootProps, getInputProps}) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        </form>
+      </div> 
+      
+      <div className='cell small-4'>
+        <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
+      </div>
+      
+      <div className='cell small-4'>
+        <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
+      </div>
     </>
   )
 }
