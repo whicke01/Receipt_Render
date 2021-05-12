@@ -75,9 +75,13 @@ const GuestNamesForm = (props) => {
       <div className='cell small-11'>
         {guestsTiles}
       </div>
+      <div className='cell medium-6'>
+        <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
+      </div>
 
-      <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
-      <button onClick={onNext} name='previous' className='home_button next_button'>Previous</button>
+      <div className='cell medium-6'>
+        <button onClick={onNext} name='next' className='home_button next_button'>Next</button>
+      </div>
     </>
   )
 }

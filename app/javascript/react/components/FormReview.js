@@ -3,21 +3,28 @@ import React from 'react'
 const FormReview = (props) => {
 
   const onClickSubmit= (event) => {
-    props.postReceipt()
+    props.addReceipt()
   }
 
   const guestNames = props.receipt.guests.map( (guest, index) => {
-    return <li key={index} >Guest {index + 1}: {guest}</li>
+    return <p key={index} >Guest {index + 1}: {guest}</p>
   })
   return(
     <>
-      <h4>Restaurant: {props.receipt.restaurant}</h4>
-      <ul>
-        {guestNames}
-      </ul>
-      <img src={props.receipt.image} alt='image of your receipt'/>
+      <div className='cell small-10'>
+        <h4>Restaurant: {props.receipt.restaurant}</h4>
+      </div>
 
-      <button onClick={onClickSubmit} className='home_button next_button'>Submit</button>
+      <div className='cell small-10'>
+        <ul>
+          {guestNames}
+        </ul>
+      </div>
+      
+      {/* <img src={props.receipt.image.path} alt='image of your receipt'/> */}
+      <div className='cell small-10'>
+        <button onClick={onClickSubmit} className='home_button next_button'>Submit</button>
+      </div>
     </>
   )
 }

@@ -26,7 +26,7 @@ const ReceiptForm = (props) => {
     body.append('image', newReceipt.image)
 
     try {
-      const response = await fetch("api/v1/receipts", {
+      const response = await fetch("/api/v1/receipts", {
         method: 'POST',
         credentials: 'same-origin',
         body: body
@@ -37,6 +37,7 @@ const ReceiptForm = (props) => {
       }
       const addedReceipt = await response.json()
       console.log('Redirect here to item show page')
+      debugger
 
     } catch(error) {
       console.error(`Error in post fetch: ${error.message}`)
@@ -58,7 +59,7 @@ const ReceiptForm = (props) => {
             <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
           </Route>
           <Route exact path='/receipt/new/4'>
-            <FormReview receipt={newReceipt} postSubmit={addReceipt} />
+            <FormReview receipt={newReceipt} addReceipt={addReceipt} />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 

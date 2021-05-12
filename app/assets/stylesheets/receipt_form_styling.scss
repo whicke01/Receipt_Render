@@ -4,8 +4,8 @@
 
   .input-group-field {
     text-align: center;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
     padding: 1rem;
     border-radius: 0.75em;
     max-width: 10rem;
@@ -17,6 +17,8 @@
   }
 
   .input-group-button {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
     .circle {
       border-radius: 50%;
       padding: 0.7em 0.7em;
@@ -37,12 +39,17 @@
   padding-right: 2rem;
 }
 
+.rest_name_div {
+  color: #000B41;
+}
+
 .rest_name_input {
-  font-size: 2Rem;
+  color: #000B41;
+  font-size: 2rem;
 
   & input {
-    max-width: 12rem;
-    color: #000BBB
+    width: 50%;
+    margin-left: 25%;
   }
 }
 
