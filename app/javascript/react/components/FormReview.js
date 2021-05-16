@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState} from 'react'
+import { Redirect } from 'react-router-dom'
 
 const FormReview = (props) => {
+  const [shouldRedirect, setRedirect] = useState({flag: false})
 
   const onClickSubmit= (event) => {
     props.addReceipt()
+    setRedirect({
+      ...shouldRedirect,
+      flage: true
+    })
   }
 
   const guestNames = props.receipt.guests.map( (guest, index) => {

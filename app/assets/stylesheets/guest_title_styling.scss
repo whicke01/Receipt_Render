@@ -17,12 +17,40 @@
   color: #464F7A;
 }
 
+.save_button {
+  color: #000B41;
+  margin-left: 0.5rem;
+  
+  & .save_icon {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.save_button:hover {
+  color: #464F7A;
+}
+
 .guest_input_edit {
-  max-width: 30%;
+  max-width: 65%;
   height: 3rem;
   border-radius: 1.5rem;
   display: inline-block;
   font-size: 2rem;
+}
+
+.guest_name {
+  font-size: 1.5rem;
+  padding-top: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guest_name_edit {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input[type=text].guest_tile {

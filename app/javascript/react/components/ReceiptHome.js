@@ -9,6 +9,7 @@ const ReceiptHome = (props) => {
       <div className='grid-x grid-margin-x align-spaced'>
         <div className='cell small-10 home_header'>
           <h1>Welcome to Receipt Render!</h1>
+          <p>The easiest way to split the bill and enjoy the good cheer.</p>
         </div>
 
         <ReceiptLinkButton url='/receipt/new' text='Add a Receipt'/>

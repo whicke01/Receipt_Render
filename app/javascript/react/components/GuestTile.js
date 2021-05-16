@@ -30,10 +30,10 @@ const GuestTile = (props) => {
   let guestTile 
   if(guest.editable === true) {
     guestTile = (
-      <div className=''>
+      <div className='guest_name_edit'>
         <input className='guest_input_edit' type='text' value={guest.name} name='name' onChange={handleChange} />
-        <button className='edit_button' onClick={onEditClick}>
-          <i className="fas fa-edit"></i>
+        <button className='save_button' onClick={onEditClick}>
+          <i className="fas fa-save save_icon"></i>
         </button>
       </div>
     )
