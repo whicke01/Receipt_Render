@@ -36,7 +36,6 @@ const ReceiptForm = (props) => {
         throw new Error(errorMessage)
       }
       const addedReceipt = await response.json()
-      
 
     } catch(error) {
       console.error(`Error in post fetch: ${error.message}`)

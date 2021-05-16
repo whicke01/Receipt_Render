@@ -4,8 +4,7 @@ class Api::V1::ReceiptsController < ApplicationController
   def create
     submittedData = receipt_params()
 
-    receipt = Receipt.new(restaurant: submittedData[:restaurant], tax: 0.00, receipt_url: submittedData[:image], receipt_text: 'this will be edited later by the return value of the google OCR api')
-
+    receipt = Receipt.new(restaurant: submittedData[:restaurant], tax: 0.00, receipt_url: submittedData[:image], receipt_text: '')
 
     googleKey = ENV['GOOGLE_API_KEY']
     
@@ -35,30 +34,52 @@ class Api::V1::ReceiptsController < ApplicationController
     parsedText = JSON.parse(responseText.body)
 
     textBoxArray = parsedText['responses'][0]['textAnnotations']
-    puts(textBoxArray.shift)
+    textBoxArray.shift
 
     receiptItems = []
     currentXAvg = -1
+    currentIndex = 0
+    sliceingArray = []
 
     textBoxArray.map do |currentItem|
-      currentItem['boundingPoly']['vertices'].sort!{ |a, b| (a['x']) <=> (b['x']) }
-      if currentItem['boundingPoly']['vertices'][0]['x'] <= currentXAvg && currentItem['boundingPoly']['vertices'][2]['x'] >= currentXAvg
-        receiptItems.last.concat(' ' + currentItem['description'])
-      else
-        receiptItems << currentItem['description'] 
-        sumX = 0
-        currentItem['boundingPoly']['vertices'].map do |vertex|
-          vertex['x']? '':vertex['x']=0
-          sumX += vertex['x']
-        end
-
-        currentXAvg = sumX / 4
+      sumX = 0
+      currentItem['boundingPoly']['vertices'].map do |vertex|
+        vertex['x']? '':vertex['x']=0
+        sumX += vertex['x']
       end
+
+      currentXAvg = sumX / 4
+      currentIndex = textBoxArray.index(currentItem)
+
+      textBoxArray.map do |nextItem|
+        currentItem['boundingPoly']['vertices'].sort!{ |a, b| (a['x']) <=> (b['x']) }
+
+        if (nextItem['boundingPoly']['vertices'][0]['x'] <= currentXAvg && 
+          nextItem['boundingPoly']['vertices'][2]['x'] >= currentXAvg &&
+          textBoxArray.index(nextItem) > currentIndex)
+
+          currentItem['description'] << (' ' + nextItem['description'] )
+          sliceingArray << textBoxArray.index(nextItem)
+        end
+      end
+
+      if(sliceingArray.length > 0)
+        sliceingArray.reverse!
+        sliceingArray.map do |sliceIndex|
+          textBoxArray.slice!(sliceIndex)
+        end
+        sliceingArray = []
+      end
+      receiptItems << currentItem['description']
     end
 
-    binding.pry
+    receipt.receipt_text = receiptItems.join('\n')
 
-    render json: {receipt: receipt, guests: submittedData[:guests]} 
+    if receipt.save
+      render json: receipt
+    else
+      render json: {errors: piza.errors.full_messages}
+    end
   end
 
   private
