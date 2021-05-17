@@ -76,6 +76,7 @@ class Api::V1::ReceiptsController < ApplicationController
     receipt.receipt_text = receiptItems.join('\n')
 
     if receipt.save
+      
       render json: receipt
     else
       render json: {errors: piza.errors.full_messages}
