@@ -43,6 +43,7 @@ class Api::V1::ReceiptsController < ApplicationController
 
     textBoxArray.map do |currentItem|
       sumX = 0
+
       currentItem['boundingPoly']['vertices'].map do |vertex|
         vertex['x']? '':vertex['x']=0
         sumX += vertex['x']
@@ -55,13 +56,17 @@ class Api::V1::ReceiptsController < ApplicationController
         currentItem['boundingPoly']['vertices'].sort!{ |a, b| (a['x']) <=> (b['x']) }
 
         if (nextItem['boundingPoly']['vertices'][0]['x'] <= currentXAvg && 
-          nextItem['boundingPoly']['vertices'][2]['x'] >= currentXAvg &&
+          nextItem['boundingPoly']['vertices'][3]['x'] >= currentXAvg &&
           textBoxArray.index(nextItem) > currentIndex)
 
-          currentItem['description'] << (' ' + nextItem['description'] )
+          currentItem['description'] << ' '
+          currentItem['description'] << nextItem['description']
+          
           sliceingArray << textBoxArray.index(nextItem)
         end
       end
+      
+      receiptItems << currentItem['description']
 
       if(sliceingArray.length > 0)
         sliceingArray.reverse!
@@ -70,13 +75,47 @@ class Api::V1::ReceiptsController < ApplicationController
         end
         sliceingArray = []
       end
-      receiptItems << currentItem['description']
     end
 
-    receipt.receipt_text = receiptItems.join('\n')
+    receipt.receipt_text = receiptItems.join(' \n')
+
+    taxItem = 0
+    subtotalItem = 0
+    
+    receiptItems.map do |item|
+      item.include?('Tax')? (taxItem = item) : ''
+      (item.include?('Sub') && item.include?('total'))? (subtotalItem = item) : '' 
+    end
+
+    if taxItem != 0 && subtotalItem != 0
+      taxAmount = taxItem[/\d+[,.]\d+/].to_f
+      subtotal = subtotalItem[/\d+[,.]\d+/].to_f
+      tax = ((taxAmount / subtotal) * 100).round
+      receipt.tax = tax
+    end
 
     if receipt.save
       
+      receiptItems.map do |item|
+        quantity = nil
+        itemName = item
+        price = nil
+
+        if (itemName =~ /^[0-9].*/) == 0
+          quantity = itemName[/\d+/]
+          itemName.delete_prefix!(quantity)
+          quantity.to_i
+        end
+
+        if (itemName[/\d+[,.]\d+/])
+          price = itemName[/\d+[,.]\d+/]
+          itemName.delete_suffix!("$" + price)
+          price.to_f
+        end
+
+        Item.create(quantity: quantity, name: itemName, price: price, receipt: receipt)
+      end
+
       render json: receipt
     else
       render json: {errors: piza.errors.full_messages}
