@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import ReceiptHome from './ReceiptHome'
 import ReceiptForm from './ReceiptForm'
+import ItemIndex from './ItemIndex'
 
 export const App = (props) => {
   return (
@@ -12,6 +13,7 @@ export const App = (props) => {
         <Route exact path={`/receipt`} conponent={ReceiptHome}/>
         <Route exact path={`/receipt/new`} component={ReceiptForm}/>
         <Route exact path={`/receipt/new/:id`} component={ReceiptForm} />
+        <Route exact path={`/receipt/:id`} component={ItemIndex} />
       </Switch>
     </BrowserRouter>
   )

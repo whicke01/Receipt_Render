@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   get '/receipt', to: 'homes#index'
   get '/receipt/new', to: 'homes#index'
   get '/receipt/new/:id', to: 'homes#index'
+  get '/receipt/:id', to: 'homes#index'
 
   namespace :api do
     namespace :v1 do
-      resources :receipts, only: [:create]
+      resources :receipts, only: [:create, :show] do
+        resources :items, only: [:index]
+      end
     end
   end
 end

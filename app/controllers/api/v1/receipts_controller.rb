@@ -84,14 +84,17 @@ class Api::V1::ReceiptsController < ApplicationController
     
     receiptItems.map do |item|
       item.include?('Tax')? (taxItem = item) : ''
-      (item.include?('Sub') && item.include?('total'))? (subtotalItem = item) : '' 
+      (item.include?('Sub') && item.include?('total'))? (subtotalItem = item) : ''
     end
 
-    if taxItem != 0 && subtotalItem != 0
-      taxAmount = taxItem[/\d+[,.]\d+/].to_f
-      subtotal = subtotalItem[/\d+[,.]\d+/].to_f
-      tax = ((taxAmount / subtotal) * 100).round
-      receipt.tax = tax
+    if taxItem != 0 && subtotalItem != 0 
+      taxAmount = taxItem[/\d+[,.]\d+/]
+      subtotal = subtotalItem[/\d+[,.]\d+/]
+      
+      if taxAmount && subtotal
+        tax = ((taxAmount.to_f / subtotal.to_f) * 100).round
+        receipt.tax = tax
+      end
     end
 
     if receipt.save
