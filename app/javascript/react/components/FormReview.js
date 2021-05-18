@@ -54,7 +54,10 @@ const FormReview = (props) => {
   }
 
   if(newReceipt.id) {
-    return <Redirect push to={`/receipt/${newReceipt.id}`} />
+    return <Redirect to={{
+      pathname: `/receipt/${newReceipt.id}`,
+      state: {guests: newReceipt.guests}
+    }} />
   }
 
   const guestNames = props.receipt.guests.map( (guest, index) => {
