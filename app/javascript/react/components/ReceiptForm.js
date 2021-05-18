@@ -8,6 +8,7 @@ import FormReview from './FormReview'
 
 const ReceiptForm = (props) => {
   const [newReceipt, setNewReceipt] = useState({
+    id: null,
     form_number: 1,
     party_size: 1,
     restaurant: '',
@@ -17,29 +18,6 @@ const ReceiptForm = (props) => {
 
   const onNextClick = (newData) => {
     setNewReceipt(newData)
-  }
-
-  const addReceipt = async () => {
-    let body = new FormData()
-    body.append('restaurant', newReceipt.restaurant)
-    body.append('guests', newReceipt.guests)
-    body.append('image', newReceipt.image)
-
-    try {
-      const response = await fetch("/api/v1/receipts", {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: body
-      })
-      if(!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
-      }
-      const addedReceipt = await response.json()
-
-    } catch(error) {
-      console.error(`Error in post fetch: ${error.message}`)
-    }
   }
 
   return(
@@ -57,7 +35,7 @@ const ReceiptForm = (props) => {
             <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
           </Route>
           <Route exact path='/receipt/new/4'>
-            <FormReview receipt={newReceipt} addReceipt={addReceipt} />
+            <FormReview receipt={newReceipt} /*addReceipt={addReceipt}*/ />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 
