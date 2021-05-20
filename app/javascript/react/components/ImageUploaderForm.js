@@ -4,13 +4,20 @@ import Dropzone from 'react-dropzone'
 
 const ImageUploaderForm = (props) => {
   const [state, setState] = useState({
-
+    pictureFlag: false,
+    shouldRedirect: NaN,
+    photoUploaded: null
   })
 
   const handleFileUpload = (acceptedFiles) => {
     let tempReceit = props.receipt
     tempReceit.image = acceptedFiles[0]
     props.onNextClick(tempReceit)
+    
+    const tempState = state
+    tempState.pictureFlag = true
+    tempState.photoUploaded = <h4>You have selected a photo</h4>
+    setState(tempState)
   }
 
   const onNext = (event) => {
@@ -19,22 +26,42 @@ const ImageUploaderForm = (props) => {
     let newReceipt = props.receipt
     if(event.currentTarget.name === 'next') {
       newReceipt.form_number = props.receipt.form_number + 1
+
+      if(state.pictureFlag) {
+        setState({
+          ...state,
+          shouldRedirect: newReceipt.form_number
+        })
+      } else {
+        setState({
+          ...state,
+          photoUploaded: <h4>Please add a picture of the receipt before clicking submit</h4>
+        })
+      }
     } else if(event.currentTarget.name === 'previous') {
       newReceipt.form_number = props.receipt.form_number - 1
+
+      setState({
+        ...state,
+        shouldRedirect: newReceipt.form_number
+      })
     }
+    
     props.onNextClick(newReceipt)
-    setState({
-      ...state,
-      shouldRedirect: newReceipt.form_number
-    })
   }
 
   if(state.shouldRedirect) {
     return <Redirect push to={`/receipt/new/${state.shouldRedirect}`} />
   }
 
+  let photoDisplayText = null
+  if(state.photoUploaded) {
+    photoDisplayText = state.photoUploaded
+  }
+
   return(
     <>
+      {photoDisplayText}
       <div className="cell small-10 image_drop_div">
         <form className="callout">
           <Dropzone onDrop={handleFileUpload}>

@@ -35,7 +35,7 @@ const ReceiptForm = (props) => {
             <ImageUploaderForm receipt={newReceipt} onNextClick={onNextClick} />
           </Route>
           <Route exact path='/receipt/new/4'>
-            <FormReview receipt={newReceipt} /*addReceipt={addReceipt}*/ />
+            <FormReview receipt={newReceipt} />
           </Route>
           <Route path='/receipt/new'>
             <PartySizeForm 
