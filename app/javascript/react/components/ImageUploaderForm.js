@@ -16,14 +16,11 @@ const ImageUploaderForm = (props) => {
     
     const tempState = state
     tempState.pictureFlag = true
-    // tempState.photoUploaded = <h4>You have selected a photo</h4>
 
     setState({
       ...state,
       pictureFlag: true
     })
-
-    // setState(tempState)
   }
 
   const onNext = (event) => {
