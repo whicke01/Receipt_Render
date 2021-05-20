@@ -16,8 +16,14 @@ const ImageUploaderForm = (props) => {
     
     const tempState = state
     tempState.pictureFlag = true
-    tempState.photoUploaded = <h4>You have selected a photo</h4>
-    setState(tempState)
+    // tempState.photoUploaded = <h4>You have selected a photo</h4>
+
+    setState({
+      ...state,
+      pictureFlag: true
+    })
+
+    // setState(tempState)
   }
 
   const onNext = (event) => {
@@ -32,10 +38,11 @@ const ImageUploaderForm = (props) => {
           ...state,
           shouldRedirect: newReceipt.form_number
         })
+        props.onNextClick(newReceipt)
       } else {
         setState({
           ...state,
-          photoUploaded: <h4>Please add a picture of the receipt before clicking submit</h4>
+          photoUploaded: <h4>Please add a picture of the receipt before clicking 'Next'</h4>
         })
       }
     } else if(event.currentTarget.name === 'previous') {
@@ -45,23 +52,24 @@ const ImageUploaderForm = (props) => {
         ...state,
         shouldRedirect: newReceipt.form_number
       })
+      props.onNextClick(newReceipt)
     }
-    
-    props.onNextClick(newReceipt)
   }
 
   if(state.shouldRedirect) {
     return <Redirect push to={`/receipt/new/${state.shouldRedirect}`} />
   }
 
-  let photoDisplayText = null
-  if(state.photoUploaded) {
-    photoDisplayText = state.photoUploaded
+  let photoStatus = null
+  if(state.pictureFlag) {
+    photoStatus = <h4>You have added a photo.</h4>
+  } else {
+    photoStatus = state.photoUploaded
   }
 
   return(
     <>
-      {photoDisplayText}
+      {photoStatus}
       <div className="cell small-10 image_drop_div">
         <form className="callout">
           <Dropzone onDrop={handleFileUpload}>
