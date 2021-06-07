@@ -59,8 +59,6 @@ const ItemIndex = (props) => {
     const updatedGuests = party.guests
     const selectedGuest = updatedGuests.find( (guest) => guest.name === name)
 
-    debugger
-
     if(previousGuest === '') {
       selectedGuest.amount += parseFloat(price)
     } else {
