@@ -45,10 +45,6 @@ const ItemIndex = (props) => {
     return newGuests
   }
 
-  const guestAmount = party.guests.map( (guest, index) => {
-    return(<li key={index}>name: {guest.name} total: {guest.amount}</li>)
-  })
-
   useEffect( () => {
     fetchParty()
     if(party.redraw) {
@@ -59,7 +55,7 @@ const ItemIndex = (props) => {
     }
   }, [])
 
-  const setGuestAmount = (name, price) => {
+  const setGuestAmount = (name, price, previousGuest) => {
     const updatedGuests = party.guests
     const selectedGuest = updatedGuests.find( (guest) => guest.name === name)
     selectedGuest.amount += parseFloat(price)
@@ -68,16 +64,16 @@ const ItemIndex = (props) => {
       ...party,
       guests: updatedGuests
     })
-
   }
 
   const editItemField = (id, fieldName, fieldValue, selectedGuest) => {
     const updatedItems = party.items
     const selectedItem = updatedItems.find( (item) => item.id === id)
     selectedItem[fieldName] = fieldValue
+
     debugger
 
-    if(fieldName === 'price') {
+    if(fieldName === 'price' && selectedGuest) {
       setGuestAmount(selectedGuest, fieldValue)
     } else {
       setParty({
@@ -85,11 +81,12 @@ const ItemIndex = (props) => {
         item: updatedItems
       })
     }
-
-
   }
-
   
+  const guestAmount = party.guests.map( (guest, index) => {
+    return(<li key={index}>name: {guest.name} total: {guest.amount}</li>)
+  })
+
   let itemTilesArray = party.items.map( (item) => {
     return(
       <ItemTile 

@@ -14,7 +14,7 @@ const ItemTile = (props) => {
 
   const handleSelectGuest = (event) => {
     event.preventDefault()
-    props.selectGuest(event.currentTarget.value, lineItem.price)
+    props.selectGuest(event.currentTarget.value, lineItem.price, lineItem.selectedGuest)
 
     setLineItem({
       ...lineItem,
@@ -28,6 +28,17 @@ const ItemTile = (props) => {
     const fieldValue = event.currentTarget.value
 
     props.editItemField(props.id, fieldName, fieldValue, lineItem.selectedGuest)
+
+    setLineItem({
+      ...lineItem,
+      [fieldName]: fieldValue
+    })
+  }
+
+  const handlePriceChange = (event) => {
+    event.preventDefault()
+    const fieldName = event.currentTarget.id
+    const fieldValue = event.currentTarget.value
 
     setLineItem({
       ...lineItem,
@@ -77,7 +88,8 @@ const ItemTile = (props) => {
               type="number" 
               step="0.01"
               value={lineItem.price}
-              onChange={HandleFieldChange}
+              onChange={handlePriceChange}
+              onBlur={HandleFieldChange}
             />
           </label>
         </div>
