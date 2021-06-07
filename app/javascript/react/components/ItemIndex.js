@@ -71,8 +71,6 @@ const ItemIndex = (props) => {
     const selectedItem = updatedItems.find( (item) => item.id === id)
     selectedItem[fieldName] = fieldValue
 
-    debugger
-
     if(fieldName === 'price' && selectedGuest) {
       setGuestAmount(selectedGuest, fieldValue)
     } else {
@@ -84,7 +82,7 @@ const ItemIndex = (props) => {
   }
   
   const guestAmount = party.guests.map( (guest, index) => {
-    return(<li key={index}>name: {guest.name} total: {guest.amount}</li>)
+    return(<p key={index}>Name: {guest.name}, total: ${guest.amount}</p>)
   })
 
   let itemTilesArray = party.items.map( (item) => {
