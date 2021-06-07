@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
 
 import ItemTile from './ItemTile'
 
@@ -72,15 +71,21 @@ const ItemIndex = (props) => {
 
   }
 
-  const editItemField = (id, fieldName, fieldValue) => {
+  const editItemField = (id, fieldName, fieldValue, selectedGuest) => {
     const updatedItems = party.items
     const selectedItem = updatedItems.find( (item) => item.id === id)
     selectedItem[fieldName] = fieldValue
+    debugger
 
-    setParty({
-      ...party,
-      item: updatedItems
-    })
+    if(fieldName === 'price') {
+      setGuestAmount(selectedGuest, fieldValue)
+    } else {
+      setParty({
+        ...party,
+        item: updatedItems
+      })
+    }
+
 
   }
 

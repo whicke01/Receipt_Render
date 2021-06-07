@@ -5,7 +5,8 @@ const ItemTile = (props) => {
     price: props.item.price,
     name: props.item.name,
     quantity: props.item.quantity,
-    guest: ''
+    guest: '',
+    selectedGuest: ''
   })
 
   lineItem.price? '' : (lineItem.price = 0.00)
@@ -17,7 +18,7 @@ const ItemTile = (props) => {
 
     setLineItem({
       ...lineItem,
-      guest: event.currentTarget.value
+      selectedGuest: event.currentTarget.value
     })
   }
 
@@ -25,7 +26,8 @@ const ItemTile = (props) => {
     event.preventDefault()
     const fieldName = event.currentTarget.id
     const fieldValue = event.currentTarget.value
-    props.editItemField(props.id, fieldName, fieldValue)
+
+    props.editItemField(props.id, fieldName, fieldValue, lineItem.selectedGuest)
 
     setLineItem({
       ...lineItem,
@@ -33,9 +35,11 @@ const ItemTile = (props) => {
     })
   }
 
-  const guestOptions = props.guests.map( (guest) => {
+  const guestOptions2 = props.guests.map( (guest) => {
     return(<option key={guest.name} value={guest.name}>{guest.name}</option>)
   })
+
+  const guestOptions = [<option key={'001'} value={''}> </option>].concat(guestOptions2)
 
   return(
     <div className='item_tile grid-x align-spaced'>
@@ -80,7 +84,7 @@ const ItemTile = (props) => {
 
         <div className='cell small-2'>
           <label htmlFor='guest'> Belongs to:
-            <select id='guest' name='guest' value={lineItem.guest} onChange={handleSelectGuest}>
+            <select id='guest' name='guest' value={lineItem.selectedGuest} onChange={handleSelectGuest}>
               {guestOptions}
             </select>
           </label>
