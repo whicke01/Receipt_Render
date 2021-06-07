@@ -7,4 +7,8 @@ class Api::V1::ItemsController < ApplicationController
     render json: receipt, serializer: ReceiptSerializer
   end
 
+  def destory 
+    #
+  end
+
 end

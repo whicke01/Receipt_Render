@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
 
 import ItemTile from './ItemTile'
 
@@ -46,10 +45,6 @@ const ItemIndex = (props) => {
     return newGuests
   }
 
-  const guestAmount = party.guests.map( (guest, index) => {
-    return(<li key={index}>name: {guest.name} total: {guest.amount}</li>)
-  })
-
   useEffect( () => {
     fetchParty()
     if(party.redraw) {
@@ -60,31 +55,43 @@ const ItemIndex = (props) => {
     }
   }, [])
 
-  const setGuestAmount = (name, price) => {
+  const setGuestAmount = (name, price, previousGuest) => {
     const updatedGuests = party.guests
     const selectedGuest = updatedGuests.find( (guest) => guest.name === name)
-    selectedGuest.amount += parseFloat(price)
+
+    if(previousGuest === '') {
+      selectedGuest.amount += parseFloat(price)
+    } else {
+      const oldGuest = updatedGuests.find ( (guest) => guest.name === previousGuest)
+      oldGuest.amount -= parseFloat(price)
+      selectedGuest.amount += parseFloat(price)
+    }
 
     setParty({
       ...party,
       guests: updatedGuests
     })
-
   }
 
-  const editItemField = (id, fieldName, fieldValue) => {
+  const editItemField = (id, fieldName, fieldValue, selectedGuest) => {
     const updatedItems = party.items
     const selectedItem = updatedItems.find( (item) => item.id === id)
     selectedItem[fieldName] = fieldValue
 
-    setParty({
-      ...party,
-      item: updatedItems
-    })
-
+    if(fieldName === 'price' && selectedGuest) {
+      setGuestAmount(selectedGuest, fieldValue)
+    } else {
+      setParty({
+        ...party,
+        item: updatedItems
+      })
+    }
   }
-
   
+  const guestAmount = party.guests.map( (guest, index) => {
+    return(<p key={index}>Name: {guest.name}, total: ${guest.amount}</p>)
+  })
+
   let itemTilesArray = party.items.map( (item) => {
     return(
       <ItemTile 
